@@ -21,15 +21,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function drawGame() {
   document.getElementById("app").innerHTML = /*html*/ `
-            ${makeCardPairHtml("c1-1", "c1-2", "Bolla-gjeip")}
-            ${makeCardPairHtml("c2-1", "c2-2", "Bolla")}
+            ${makeCardPairHtml("c1-1", "c1-2", "lexi")}
+            ${makeCardPairHtml("c2-1", "c2-2", "bolla-gjeip")}
+            
     `;
 }
 
 // all image must have .jpg extension and be in /img folder
-function makeCardPairHtml(id, id2, imgFileName) {
+function makeCardPairHtml(id, id2, img) {
   return /*html*/ `
-        <div id="${id}" class="card"><img src="/img/${imgFileName}.jpg"/></div>
-        <div id="${id2}" class="card"><img src="/img/${imgFileName}.jpg"/></div>
+        <div id="${id}" onclick="revealCard(id, '${img}')" class="card"><img src="/img/front.png"/></div>
+        <div id="${id2}" onclick="revealCard(id, '${img}')" class="card"><img src="/img/front.png"/></div>
     `;
+}
+
+function revealCard(id, imgFileName) {
+  document.getElementById(id).innerHTML = /*html*/ `
+    <img src="/img/${imgFileName}.jpg"/>
+  `;
 }
