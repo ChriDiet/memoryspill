@@ -11,6 +11,16 @@ body {
     align-items: center;
     justify-items: center;
 }
+.card > img {
+    width: 200px;
+}
+.card{
+    /* background-color: blue; */
+}
+/* .hideImg > img {
+    display: none;
+    
+} */
 /* .test{
     display: grid;
     grid-template-columns: repeat(2, 300px);
