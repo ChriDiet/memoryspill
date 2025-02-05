@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function drawGame() {
   document.getElementById("app").innerHTML = /*html*/ `
-        <div id="c1">
-            <div class="card"><img src="/img"/></div>
-            <div class="card">TEST</div>
-        </div>
-        <div id="c2">
-            <div class="card">TEST</div>
-            <div class="card">TEST</div>
-        </div>
+        
+            <div class="card"><img src="/img/Bolla-gjeip.jpg" width="200px"/></div>
+            <div class="card"><img src="/img/Bolla-gjeip.jpg" width="200px"/></div>
+        
+        
+            <div class="card"><img src="/img/Bolla.jpg" width="200px"/></div>
+            <div class="card"><img src="/img/Bolla.jpg" width="200px"/></div>
+        
     `;
 }
