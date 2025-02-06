@@ -16,6 +16,7 @@
 // 4. keep showing img that are same
 
 let clickedIds = [];
+let counter = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
   drawGame();
@@ -30,17 +31,12 @@ function drawGame() {
     "lucifer",
     "Simba",
     "simba2",
-    "gjeip-2",
+    "lexi-gjeip",
   ];
   let elementIds = createImgId(16);
   let cardElements = makeCards(elementIds, imgNames);
   let shuffledElements = shuffleElements(cardElements);
   document.getElementById("app").innerHTML = shuffledElements.join("");
-  // document.getElementById("app").innerHTML = /*html*/ `
-  //           ${makeCardPairHtml("c1-1", "c1-2", "lexi", "lexi", "1")}
-  //           ${makeCardPairHtml("c2-1", "c2-2", "Simba", "Simba", "2")}
-
-  //   `;
 }
 
 function makeCards(ids, imgs) {
@@ -52,21 +48,15 @@ function makeCards(ids, imgs) {
   return cardElements;
 }
 
-// all image must have .jpg extension and be in /img folder
 function makeCardHtml(id, img) {
   return /*html*/ `
-        <div id="${id}" onclick="revealCard(id, '${img}')" class="card"><img src="/img/front.png"/></div>
+        <div id="${id}" onclick="revealCard(id, '${img}')" class="card" ><img style="box-shadow: 7px 8px 9px;" src="/img/front.png"/></div>
     `;
 }
-// function makeCardPairHtml(id, imgName) {
-//   return /*html*/ `
-//         <div id="${id}" onclick="revealCard(id, '${imgName}')" class="card"><img src="/img/front.png"/></div>
-//     `;
-// }
 
 function revealCard(id, imgFileName) {
   document.getElementById(id).innerHTML = /*html*/ `
-    <img src="/img/${imgFileName}.jpg"/>
+    <img style="box-shadow: 7px 8px 9px;" src="/img/${imgFileName}.jpg"/>
   `;
   console.log(id);
   equalityImgCheck(id);
@@ -74,25 +64,42 @@ function revealCard(id, imgFileName) {
 
 function equalityImgCheck(id) {
   // timeOutLength set in ms
-  let timeOutLength = 1000;
+  let timeOutLength = 1100;
 
   clickedIds.push(id);
   for (let i = 0; i < clickedIds.length; i++) {
     if (clickedIds.length == 2) {
-      console.log("clickedIds.slice", clickedIds[0].slice(0, 2));
       let className = clickedIds[0].slice(0, 2);
       let className2 = clickedIds[1].slice(0, 2);
 
-      console.log("inside loop", className + " " + className2);
       if (className != className2) {
-        console.log("not equal");
         setTimeout(() => {
           turnWrongPair();
           clickedIds = [];
         }, timeOutLength);
       } else {
-        clickedIds = [];
-        // remove image divs function call;
+        setTimeout(() => {
+          document.getElementById(clickedIds[0]).style.opacity = 0.5;
+          document.getElementById(clickedIds[1]).style.opacity = 0.5;
+          counter++;
+
+          // document.getElementById(
+          //   clickedIds[0]
+          // ).innerHTML = '';
+          // document.getElementById(
+          //   clickedIds[1]
+          // ).innerHTML = '';
+
+          clickedIds = [];
+        }, timeOutLength);
+      }
+      if (counter == 8) {
+        setTimeout(() => {
+          document.getElementById("text").innerHTML = /*html*/ `
+            <h2>Gratulerer du er ferdig!</h2>
+           `;
+          document.getElementById("app").innerHTML = /*html*/ ``;
+        }, 500);
       }
     }
   }
@@ -101,7 +108,7 @@ function equalityImgCheck(id) {
 function turnWrongPair() {
   clickedIds.forEach((element) => {
     document.getElementById(element).innerHTML = /*html*/ `
-        <img src="/img/front.png"/>
+        <img style="box-shadow: 7px 8px 9px;" src="/img/front.png"/>
         `;
   });
 }
@@ -129,12 +136,4 @@ function shuffleElements(elements) {
     newElements[j] = temp;
   }
   return newElements;
-}
-
-function findId(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    // return arr[i].id.slice(0, 2);
-    // console.log(arr[i].id.slice(0, 2));
-    console.log("arr index.id", arr[i].id);
-  }
 }
