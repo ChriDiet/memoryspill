@@ -58,13 +58,13 @@ function revealCard(id, imgFileName) {
   document.getElementById(id).innerHTML = /*html*/ `
     <img style="box-shadow: 7px 8px 9px;" src="/img/${imgFileName}.jpg"/>
   `;
-  console.log(id);
   equalityImgCheck(id);
 }
 
 function equalityImgCheck(id) {
   // timeOutLength set in ms
   let timeOutLength = 1100;
+  let boardClearedTimer = 500;
 
   clickedIds.push(id);
   for (let i = 0; i < clickedIds.length; i++) {
@@ -79,8 +79,10 @@ function equalityImgCheck(id) {
         }, timeOutLength);
       } else {
         setTimeout(() => {
-          document.getElementById(clickedIds[0]).style.opacity = 0.5;
-          document.getElementById(clickedIds[1]).style.opacity = 0.5;
+          const ids = [...clickedIds];
+          document.getElementById(ids[0]).style.opacity = 0.5;
+          document.getElementById(ids[1]).style.opacity = 0.5;
+
           counter++;
 
           // document.getElementById(
@@ -99,7 +101,7 @@ function equalityImgCheck(id) {
             <h2>Gratulerer du er ferdig!</h2>
            `;
           document.getElementById("app").innerHTML = /*html*/ ``;
-        }, 500);
+        }, boardClearedTimer);
       }
     }
   }
